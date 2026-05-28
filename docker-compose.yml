@@ -1,0 +1,17 @@
+# Single-node PostgreSQL 16 — local infrastructure for testing this homework.
+# Поднять:  docker compose up -d   |   Остановить:  docker compose down -v
+# DSN: postgres://postgres:postgres@localhost:5432/postgres
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    ports: ["5432:5432"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
